@@ -43,7 +43,7 @@ export default class MapScreen extends React.Component {
             {/* list of events */}
             {events.map(event => {
               if (this.showEvent(event.time)) // checks for overlap of each event with currently selected interval
-                return (<EventPin key = {event.name} event = {event}/>)
+                return (<EventPin key = {event.name} event = {event}/>) // change key to reflect something more unique!!
             })}
           </MapView>
       );

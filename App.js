@@ -23,7 +23,7 @@ export default class App extends React.Component {
               step={0.5} // 30 min steps
               allowOverlap
 
-              onValuesChangeFinish = {(values) => mapStore.setTime(values[0], values[1])}
+              onValuesChangeFinish = {(values) => mapStore.setTime(values[0], values[1])} // update time interval that events can lie in
             />
           </View>
         </View>

@@ -1,7 +1,5 @@
 import MapView from 'react-native-maps'
-import {Callout, Marker} from 'react-native-maps'
 import React from 'react'
-import {Text, FlatList} from 'react-native'
 import {observer, inject} from 'mobx-react'
 
 import EventPin from '../Components/EventPin.js'
@@ -37,14 +35,14 @@ export default class MapScreen extends React.Component {
           initialRegion={{
             latitude: riceCoords.latitude,
             longitude: riceCoords.longitude,
-            latitudeDelta: 0.000922,
-            longitudeDelta: 0.00421,
+            latitudeDelta: 0.000922, // hand-tuned
+            longitudeDelta: 0.00421, // hand-tuned
           }}
           onPress={ (event) => console.log(event.nativeEvent.coordinate)}
           >
             {/* list of events */}
             {events.map(event => {
-              if (this.showEvent(event.time)) // checks for overlap 
+              if (this.showEvent(event.time)) // checks for overlap of each event with currently selected interval
                 return (<EventPin key = {event.name} event = {event}/>)
             })}
           </MapView>

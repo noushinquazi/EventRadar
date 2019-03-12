@@ -1,0 +1,89 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
+import { View, StyleSheet, Platform, TouchableHighlight, Text } from 'react-native';
+
+const ViewPropTypes = require('react-native').ViewPropTypes || View.propTypes;
+
+export default class SliderMarker extends React.Component {
+  static propTypes = {
+    pressed: PropTypes.bool,
+    pressedMarkerStyle: ViewPropTypes.style,
+    markerStyle: ViewPropTypes.style,
+    enabled: PropTypes.bool,
+    currentValue: PropTypes.number,
+    valuePrefix: PropTypes.string,
+    valueSuffix: PropTypes.string,
+  };
+
+  convertToTime = hr => {
+    if (hr % 12 == 0) {
+        if (hr == 12) return "12 pm"
+        else return "12 am"
+    }
+
+    end = hr >= 12 ? "pm" : "am"
+    return hr % 12 + " " + end
+
+  }
+
+  render() {
+    return (
+      <View>
+        <Text style = {{flex: 0.3}}>{this.convertToTime(this.props.currentValue)}</Text>
+        <TouchableHighlight style = {{flex: 0.7}}>
+          <View
+            style={this.props.enabled ? [
+              styles.markerStyle,
+              this.props.markerStyle,
+              this.props.pressed && styles.pressedMarkerStyle,
+              this.props.pressed && this.props.pressedMarkerStyle,
+            ] : [styles.markerStyle, styles.disabled]}
+          />
+        </TouchableHighlight>
+      </View>
+      
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  markerStyle: {
+    ...Platform.select({
+      ios: {
+        height: 30,
+        width: 30,
+        borderRadius: 30,
+        borderWidth: 1,
+        borderColor: '#DDDDDD',
+        backgroundColor: '#FFFFFF',
+        shadowColor: '#000000',
+        shadowOffset: {
+          width: 0,
+          height: 3,
+        },
+        shadowRadius: 1,
+        shadowOpacity: 0.2,
+      },
+      android: {
+        height: 12,
+        width: 12,
+        borderRadius: 12,
+        backgroundColor: '#0D8675',
+      },
+    }),
+  },
+  pressedMarkerStyle: {
+    ...Platform.select({
+      ios: {},
+      android: {
+        height: 20,
+        width: 20,
+        borderRadius: 20,
+      },
+    }),
+  },
+  disabled: {
+    backgroundColor: '#d3d3d3',
+  },
+});

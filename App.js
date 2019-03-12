@@ -36,17 +36,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-/*
-            <MultiSlider
-              values = {[
-                mapStore.startTime, mapStore.endTime
-              ]}
-              min={0} // 12 AM
-              max={24} // 12 AM
-              step={0.5} // 30 min steps
-              allowOverlap
-
-              onValuesChangeFinish = {(values) => mapStore.setTime(values[0], values[1])} // update time interval that events can lie in
-            />
-*/

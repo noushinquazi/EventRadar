@@ -3,6 +3,7 @@ import {observable, transaction, action} from 'mobx'
 class MapState {
     @observable startTime = 0
     @observable endTime = 24
+    @observable eventsLoaded = false
 
     @action setStartTime(newTime) {
         this.startTime = newTime

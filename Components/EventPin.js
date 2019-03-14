@@ -7,7 +7,6 @@ import {observer, inject} from 'mobx-react'
 @observer
 export default class EventPin extends React.Component {
     render() {
-
         let {place} = this.props.event
         let {time} = this.props.event
         return (

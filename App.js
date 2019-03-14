@@ -8,7 +8,6 @@ import SliderMarker from './Components/SliderMarker.js'
 
 import mapStore from './Stores/MapStore.js'
 
-
 export default class App extends React.Component {
   render() {
     return (

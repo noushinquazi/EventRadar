@@ -14,15 +14,21 @@ class DBService {
 
     /* Query all events in DB */
     fetchEvents = async() => {
-        let client = await this.client
-        let events = await client.callFunction("getAllEvents")
-        return events
+        try {
+            let client = await this.client
+            let events = await client.callFunction("getAllEvents")
+            return events
+        } catch(err) {
+            console.log("not logged into mongodb yet")
+        }
+        return []
     }
 
     addEvent = async(event) => {
         let client = await this.client
         let result = await client.callFunction("addEvent", [event])
-        if (!result) console.log("invalid insertion")
+        if (result == null) console.log("invalid insertion")
+        return result
     }
 }
 

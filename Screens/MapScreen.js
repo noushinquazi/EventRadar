@@ -1,34 +1,23 @@
 import MapView from 'react-native-maps'
 import React from 'react'
-import {View} from 'react-native'
+import {View, Button, TouchableOpacity, Text, StyleSheet} from 'react-native'
 import {observer, inject} from 'mobx-react'
+import MultiSlider from '@ptomasroos/react-native-multi-slider'
+import Icon from 'react-native-vector-icons/Feather'
 
 import EventPin from '../Components/EventPin.js'
+import SliderMarker from '../Components/SliderMarker.js'
+import NewEventButton from '../Components/NewEventButton.js'
 import {riceCoords} from '../config.js'
-var events = require('../mockData.json')
 import DBService from '../Database/service.js'
+import NewEventForm from '../Components/NewEventForm.js'
 
 @inject('mapStore')
 @observer
 export default class MapScreen extends React.Component {
 
-    constructor(props) {
-      super(props)
-      this.state = {
-        events: []
-      }
-    }
-
-    async componentDidMount() {
-      try {
-        let events = await DBService.fetchEvents()
-        this.setState({
-          events: events
-        })
-  
-      } catch(error) {
-
-      }
+    componentDidMount() {
+      this.props.mapStore.getAllEvents()
     }
 
     _parseTime = (timeStr) => {
@@ -51,9 +40,12 @@ export default class MapScreen extends React.Component {
     }
 
     render() {
-      //DBService.addEvent()
-      console.log("render")
       return (
+        <View
+          style = {{flex: 1}}
+          >
+
+          {/* Map to display events*/}
           <MapView
             style={{ flex: 1 }}
             initialRegion={{
@@ -62,14 +54,60 @@ export default class MapScreen extends React.Component {
               latitudeDelta: 0.000922, // hand-tuned
               longitudeDelta: 0.00421, // hand-tuned
             }}
-            onPress={ (event) => console.log(event.nativeEvent.coordinate)}
+            onPress={ (event) => {
+              if (!this.props.mapStore.addingEvent) {
+                console.log(event.nativeEvent.coordinate)
+              }
+              else {
+                let {
+                  latitude: lat,
+                  longitude: long
+                } = event.nativeEvent.coordinate
+                this.props.mapStore.recordCoords(lat, long)
+                console.log(event.nativeEvent.coordinate)
+              }
+            }}
             >
               {/* list of events */}
-              {this.state.events.map(event => {
+              {this.props.mapStore.events.map(event => {
                 if (this.showEvent(event.time)) // checks for overlap of each event with currently selected interval
                   return (<EventPin key = {event.name} event = {event}/>) // change key to reflect something more unique!!
               })}
-            </MapView>
+          </MapView>
+
+          {/* Button to add posts */}
+          <View
+          style={styles.newEventButton}
+          >
+            <NewEventButton/>
+          </View>
+
+          {/* Slider to control time interval */}
+          <View style = {{alignItems: 'center'}}>
+            <MultiSlider
+                values = {[
+                  this.props.mapStore.startTime, this.props.mapStore.endTime
+                ]}
+                min={0} // 12 AM
+                max={24} // 12 AM
+                step={1} // 30 min steps
+                allowOverlap
+
+                onValuesChangeFinish = {(values) => this.props.mapStore.setTime(values[0], values[1])} // update time interval that events can lie in
+                customMarker = {SliderMarker}
+                snapped
+              />          
+          </View>
+        <NewEventForm/>          
+      </View>
       );
     }
   }
+
+styles = StyleSheet.create({
+  newEventButton: {
+    position: 'absolute',//use absolute position to show button on top of the map
+    top: '10%', //for center align
+    alignSelf: 'flex-end' //for align to right
+  }
+})

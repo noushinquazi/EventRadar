@@ -15,21 +15,6 @@ export default class App extends React.Component {
         <View style = {{flex: 1}}>
           <MapScreen
           />
-          <View style = {{alignItems: 'center'}}>
-            <MultiSlider
-                values = {[
-                  mapStore.startTime, mapStore.endTime
-                ]}
-                min={0} // 12 AM
-                max={24} // 12 AM
-                step={1} // 30 min steps
-                allowOverlap
-
-                onValuesChangeFinish = {(values) => mapStore.setTime(values[0], values[1])} // update time interval that events can lie in
-                customMarker = {SliderMarker}
-                snapped
-              />          
-          </View>
         </View>
       </Provider>
     );

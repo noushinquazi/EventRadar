@@ -26,7 +26,8 @@ export default class NewEventButton extends React.Component {
             <TouchableOpacity
                 onPress = {this.sendAlert}
                 style ={{
-                backgroundColor: "lightblue",
+                    backgroundColor: "lightblue",
+                    opacity: 0.5
                 }}
             >
                 <Icon

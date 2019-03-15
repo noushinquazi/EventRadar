@@ -1,7 +1,7 @@
 import t from 'tcomb-form-native'
 import Modal from 'react-native-modal'
 import React from 'react'
-import {View, Dimensions, StyleSheet, Button, Text, ScrollView} from 'react-native'
+import {View, Dimensions, StyleSheet, Button, Text, ScrollView, TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import {observer, inject} from 'mobx-react'
 import moment from 'moment'
@@ -116,18 +116,23 @@ export default class NewEventForm extends React.Component {
                     <View 
                         style={{
                             flexDirection: 'row', 
-                            justifyContent: 'flex-end'
+                            justifyContent: 'flex-end',
                         }}
                     >
-
                         {/* cancel button */}
+                        <TouchableOpacity
+                            onPress = {this.hideModal}
+                            style = {{
+                                paddingLeft: 50,
+                                paddingRight: 10
+                            }}
+                        >   
                         <Icon 
                             name = 'close' 
                             size = {30}
                             color = 'skyblue'
-                            padding = {10}
-                            onPress = {this.hideModal}
                         />
+                        </TouchableOpacity>
                     </View>
 
                     {/* new event creation form*/}

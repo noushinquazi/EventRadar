@@ -1,10 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { View, StyleSheet, Platform, TouchableHighlight, Text } from 'react-native';
+import moment from 'moment'
+import { inject, observer } from 'mobx-react';
+
 
 const ViewPropTypes = require('react-native').ViewPropTypes || View.propTypes;
 
+@inject('mapStore')
+@observer
 export default class SliderMarker extends React.Component {
   static propTypes = {
     pressed: PropTypes.bool,
@@ -17,6 +21,7 @@ export default class SliderMarker extends React.Component {
   };
 
   convertToTime = hr => {
+    console.log(hr)
     if (hr % 12 == 0) {
         if (hr == 12) return "12 pm"
         else return "12 am"
@@ -30,7 +35,7 @@ export default class SliderMarker extends React.Component {
   render() {
     return (
       <View>
-        <Text style = {styles.label}>{this.convertToTime(this.props.currentValue)}</Text>
+        <Text style = {styles.label}>{this.props.mapStore.getTimeFormatted(this.props.currentValue)}</Text>
         <TouchableHighlight style = {styles.marker}>
           <View
             style={this.props.enabled ? [

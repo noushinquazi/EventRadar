@@ -7,6 +7,8 @@ import {observer, inject} from 'mobx-react'
 import moment from 'moment'
 
 import DBService from '../Database/service.js'
+import {dateParseString} from '../config.js'
+
 // form component
 const Form = t.form.Form
 
@@ -15,7 +17,6 @@ const EventSchema = t.struct({
     eventName: t.String,
     startTime: t.Date,
     endTime: t.Date,
-    date: t.Date,
     eventPlace: t.String,
     link: t.maybe(t.String),
     description: t.maybe(t.String)
@@ -29,26 +30,19 @@ const options = {
         blurOnSubmit: true,
         maxLength: 1000,
       },
-      date: {
-        mode: 'date',
-        config: {
-          format: (date) =>  moment(date).format('YYYY-MM-DD'),
-          dateFormat: (date) =>  moment(date).format('YYYY-MM-DD')
-        },
-      },
       startTime: {
-          mode: 'time',
+          mode: 'datetime',
           config: {
-            format: date => moment(date).format('h:mm a'),
-            timeFormat: date => moment(date).format('h:mm a')
-          }
+            format: date => moment(date).format(dateParseString)
+          },
+          label: "Start time                                    " // make datepicker expand
       },
       endTime: {
-        mode: 'time',
+        mode: 'datetime',
         config: {
-            format: date => moment(date).format('h:mm a'),
-            timeFormat: date => moment(date).format('h:mm a')
-        }
+            format: date => moment(date).format(dateParseString)
+        },
+        label: "End time                                    "
       }
     }
   };
@@ -68,12 +62,12 @@ export default class NewEventForm extends React.Component {
         // check if submission is valid -- there must be a title!
         if(errors.length === 0){
             protoEvent = results.value
+            console.log(protoEvent)
             newEvent = {
                 name: protoEvent.eventName,
                 time: {
-                    start: moment(protoEvent.startTime).format('h:mm a'),
-                    end: moment(protoEvent.endTime).format('h:mm a'),
-                    date: moment(protoEvent.date).format('YYYY-MM-DD')
+                    start: moment(protoEvent.startTime).format(dateParseString),
+                    end: moment(protoEvent.endTime).format(dateParseString),
                 },
                 place: {
                     name: protoEvent.eventPlace,

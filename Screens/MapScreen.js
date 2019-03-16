@@ -4,11 +4,12 @@ import {View, Button, TouchableOpacity, Text, StyleSheet} from 'react-native'
 import {observer, inject} from 'mobx-react'
 import MultiSlider from '@ptomasroos/react-native-multi-slider'
 import Icon from 'react-native-vector-icons/Feather'
+import moment from 'moment'
 
 import EventPin from '../Components/EventPin.js'
 import SliderMarker from '../Components/SliderMarker.js'
 import NewEventButton from '../Components/NewEventButton.js'
-import {riceCoords} from '../config.js'
+import {riceCoords, dateParseString, backendAgent} from '../config.js'
 import DBService from '../Database/service.js'
 import NewEventForm from '../Components/NewEventForm.js'
 
@@ -33,10 +34,17 @@ export default class MapScreen extends React.Component {
     }
 
     showEvent = (time) => {
-      let start = this._parseTime(time.start)
-      let end = this._parseTime(time.end)
-
-      return !(start >= this.props.mapStore.endTime || end <= this.props.mapStore.startTime)
+//      console.log(moment("time.start").format("h:mm a"))
+      /*
+      let start = this._parseTime(moment(time.start, "DD-MMM-YYYY, hh:mm A").format("hh:mm A"))
+      let end = this._parseTime(moment(time.end, "DD-MMM-YYYY, hh:mm A").format("h:mm A"))
+      */
+      
+      let start = moment(time.start, dateParseString)
+      let end = moment(time.end, dateParseString)
+      let intervalStart = this.props.mapStore.getStartFull
+      let intervalEnd = this.props.mapStore.getEndFull
+      return start.isBetween(intervalStart, intervalEnd) || end.isBetween(intervalStart, intervalEnd)
     }
 
     render() {
@@ -90,7 +98,7 @@ export default class MapScreen extends React.Component {
                 ]}
                 min={0} // 12 AM
                 max={24} // 12 AM
-                step={1} // 30 min steps
+                step={1} // 1 hour steps
                 allowOverlap
 
                 onValuesChangeFinish = {(values) => this.props.mapStore.setTime(values[0], values[1])} // update time interval that events can lie in

@@ -56,12 +56,16 @@ export default class MapScreen extends React.Component {
           {/* Map to display events*/}
           <MapView
             style={{ flex: 1 }}
+
+            /* Default region */
             initialRegion={{
               latitude: riceCoords.latitude,
               longitude: riceCoords.longitude,
               latitudeDelta: 0.000922, // hand-tuned
               longitudeDelta: 0.00421, // hand-tuned
             }}
+
+            /* Log coordinates and record when event is being created */ 
             onPress={ (event) => {
               if (!this.props.mapStore.addingEvent) {
                 console.log(event.nativeEvent.coordinate)
@@ -79,13 +83,13 @@ export default class MapScreen extends React.Component {
               {/* list of events */}
               {this.props.mapStore.events.map(event => {
                 if (this.showEvent(event.time)) // checks for overlap of each event with currently selected interval
-                  return (<EventPin key = {event.name} event = {event}/>) // change key to reflect something more unique!!
+                  return (<EventPin key = {event.name} event = {event}/>) // CHANGE key to reflect something more unique!!
               })}
           </MapView>
 
           {/* Button to add posts */}
           <View
-          style={styles.newEventButton}
+            style={styles.newEventButton}
           >
             <NewEventButton/>
           </View>
@@ -114,8 +118,8 @@ export default class MapScreen extends React.Component {
 
 styles = StyleSheet.create({
   newEventButton: {
-    position: 'absolute',//use absolute position to show button on top of the map
-    top: '10%', //for center align
-    alignSelf: 'flex-end' //for align to right
+    position: 'absolute',// use absolute position to show button on top of the map
+    top: '10%', // for center align
+    alignSelf: 'flex-end' // for align to right
   }
 })

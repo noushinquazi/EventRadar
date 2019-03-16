@@ -35,7 +35,12 @@ export default class SliderMarker extends React.Component {
   render() {
     return (
       <View>
-        <Text style = {styles.label}>{this.props.mapStore.getTimeFormatted(this.props.currentValue)}</Text>
+
+        {/* Label for marker */}  
+        <Text style = {styles.label}>
+            {this.props.mapStore.getTimeFormatted(this.props.currentValue)}
+        </Text>
+        {/* Marker */}
         <TouchableHighlight style = {styles.marker}>
           <View
             style={this.props.enabled ? [

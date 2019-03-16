@@ -53,17 +53,16 @@ let {width: screenWidth} = Dimensions.get('window')
 @observer
 export default class NewEventForm extends React.Component {
 
-        // validate submission, send submission, close parent modal
+    /* validate submission, send submission, close parent modal */
     submitEvent = async() => {
 
         let results = this.form.validate()
         let errors = results.errors
 
-        // check if submission is valid -- there must be a title!
+        // Check if submission is valid
         if(errors.length === 0){
             protoEvent = results.value
-            console.log(protoEvent)
-            newEvent = {
+            newEvent = { // Construct event object
                 name: protoEvent.eventName,
                 time: {
                     start: moment(protoEvent.startTime).format(dateParseString),
@@ -78,8 +77,8 @@ export default class NewEventForm extends React.Component {
                 description: protoEvent.description
             }
             DBService.addEvent(newEvent).then(ev =>
-                this.props.mapStore.getAllEvents())
-            this.hideModal() // disable parent modal by changing its state
+                this.props.mapStore.getAllEvents()) // Refresh map after insertion
+            this.hideModal()
         }
     }
 
@@ -95,7 +94,7 @@ export default class NewEventForm extends React.Component {
     render () {
         return(
             <Modal
-                    isVisible = {this.props.mapStore.addingEvent && this.props.mapStore.isRecorded()}
+                    isVisible = {this.props.mapStore.addingEvent && this.props.mapStore.isRecorded}
                     animationIn = {'slideInUp'}
                     animationOut = {'zoomOut'}
                     animationInTiming = {500}

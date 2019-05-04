@@ -1,4 +1,4 @@
-import {observable, transaction, action, autorun, computed} from 'mobx'
+import {observable, transaction, action, computed} from 'mobx'
 import moment from 'moment'
 
 import DBService from '../Database/service.js'

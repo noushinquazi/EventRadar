@@ -3,14 +3,12 @@ import React from 'react'
 import {View, Button, TouchableOpacity, Text, StyleSheet} from 'react-native'
 import {observer, inject} from 'mobx-react'
 import MultiSlider from '@ptomasroos/react-native-multi-slider'
-import Icon from 'react-native-vector-icons/Feather'
 import moment from 'moment'
 
 import EventPin from '../Components/EventPin.js'
 import SliderMarker from '../Components/SliderMarker.js'
 import NewEventButton from '../Components/NewEventButton.js'
 import {riceCoords, dateParseString, backendAgent} from '../config.js'
-import DBService from '../Database/service.js'
 import NewEventForm from '../Components/NewEventForm.js'
 
 @inject('mapStore')
@@ -18,19 +16,18 @@ import NewEventForm from '../Components/NewEventForm.js'
 export default class MapScreen extends React.Component {
 
     componentDidMount() {
-      this.props.mapStore.getAllEvents()
+        this.props.mapStore.getAllEvents()
     }
 
     _parseTime = (timeStr) => {
-      let str1 = timeStr.split(" ") // [hr:min, pm or am]
-      let str2 = str1[0].split(":") // [hr, min]
-      let hr = parseInt(str2[0])
-      let min = parseInt(str2[1]) / 60
-      let isPM = (str1[1] == "pm") ? 1 : 0
+        let str1 = timeStr.split(" ") // [hr:min, pm or am]
+        let str2 = str1[0].split(":") // [hr, min]
+        let hr = parseInt(str2[0])
+        let min = parseInt(str2[1]) / 60
+        let isPM = (str1[1] == "pm") ? 1 : 0
 
-      hr = hr % 12 + isPM * 12
-      return hr + min
-
+        hr = hr % 12 + isPM * 12
+        return hr + min
     }
 
     showEvent = (time) => {
@@ -40,14 +37,15 @@ export default class MapScreen extends React.Component {
       let end = this._parseTime(moment(time.end, "DD-MMM-YYYY, hh:mm A").format("h:mm A"))
       */
       
-      let start = moment(time.start, dateParseString)
-      let end = moment(time.end, dateParseString)
-      let intervalStart = this.props.mapStore.getStartFull
-      let intervalEnd = this.props.mapStore.getEndFull
-      return start.isBetween(intervalStart, intervalEnd) || end.isBetween(intervalStart, intervalEnd)
+        let start = moment(time.start, dateParseString)
+        let end = moment(time.end, dateParseString)
+        let intervalStart = this.props.mapStore.getStartFull
+        let intervalEnd = this.props.mapStore.getEndFull
+        return start.isBetween(intervalStart, intervalEnd) || end.isBetween(intervalStart, intervalEnd)
     }
 
     render() {
+
       return (
         <View
           style = {{flex: 1}}

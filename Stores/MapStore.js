@@ -1,11 +1,14 @@
-import {observable, transaction, action, computed} from 'mobx'
+import {observable, transaction, action, computed, autorun} from 'mobx'
 import moment from 'moment'
 
 import DBService from '../Database/service.js'
+import {dateFormat} from '../config'
 
 class MapState {
-    upperBound = moment().endOf("date") // min value (Default: today)
-    lowerBound = moment().startOf("date") // max value (Default: today)
+
+    @observable currDate = moment().format(dateFormat) // date to display events from
+    @observable lowerBound = ""
+    @observable upperBound = ""
 
     @observable startTime = 0 // slider min value
     @observable endTime = 24 // slider max value
@@ -15,6 +18,14 @@ class MapState {
     @observable recordedLong = null
 
     @observable events = []
+
+    constructor() {
+        autorun(() => {
+            this.lowerBound = moment(this.currDate).startOf('date')
+
+            this.upperBound = moment(this.currDate).endOf('date')
+        })    
+    }
 
     @action setStartTime(newTime) {
         this.startTime = newTime
@@ -31,6 +42,10 @@ class MapState {
         })
     }
 
+    @action setDate(newDate) {
+        this.currDate = newDate
+    }
+    
     /* Get full start time including the date. */
     @computed get getStartFull() { 
         return this.lowerBound.clone().add(this.startTime, "h") // moment object

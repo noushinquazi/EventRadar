@@ -4,5 +4,6 @@ module.exports = {
         longitude: -95.40279,
     },
     backendAgent: 'eventsradar-backend-ntmha',
-    dateParseString: 'DD-MMM-YYYY, h:mm A'
+    dateParseString: 'DD-MMM-YYYY, h:mm A',
+    dateFormat: 'MM/DD/YYYY'
 }

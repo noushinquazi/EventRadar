@@ -40,7 +40,8 @@ export default class MapScreen extends React.Component {
         let intervalStart = this.props.mapStore.getStartFull
         let intervalEnd = this.props.mapStore.getEndFull
 
-        return start.isBetween(intervalStart, intervalEnd) || end.isBetween(intervalStart, intervalEnd)
+        // allow any overlap
+        return start.isBetween(intervalStart, intervalEnd) || end.isBetween(intervalStart, intervalEnd) || intervalStart.isBetween(start, end) || intervalEnd.isBetween(start, end)
     }
 
     render() {

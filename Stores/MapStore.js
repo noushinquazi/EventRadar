@@ -4,10 +4,12 @@ import moment from 'moment'
 import DBService from '../Database/service.js'
 
 class MapState {
-    upperBound = moment().endOf("date") // Default time min value
-    lowerBound = moment().startOf("date") // Default time max value
-    @observable startTime = 0 // Default slider min value
-    @observable endTime = 24 // Default slider max value
+    upperBound = moment().endOf("date") // min value (Default: today)
+    lowerBound = moment().startOf("date") // max value (Default: today)
+
+    @observable startTime = 0 // slider min value
+    @observable endTime = 24 // slider max value
+    
     @observable addingEvent = false
     @observable recordedLat = null
     @observable recordedLong = null
@@ -29,14 +31,17 @@ class MapState {
         })
     }
 
-    @computed get getStartFull() {
+    /* Get full start time including the date. */
+    @computed get getStartFull() { 
         return this.lowerBound.clone().add(this.startTime, "h") // moment object
     }
 
+    /* Get full end time including the date. */
     @computed get getEndFull() {
         return this.lowerBound.clone().add(this.endTime, "h") // moment object
     }
 
+    /* Format slider value. */
     getTimeFormatted(val) {
         return this.lowerBound.clone().add(val, "h").format("h A") // formatted time string
     }

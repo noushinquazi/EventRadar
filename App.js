@@ -10,7 +10,6 @@ import mapStore from './Stores/MapStore.js'
 @observer
 export default class App extends React.Component {
     render() {
-
         /* Wait for database authentication. */
         if (!DBService.isAuthenticated) {
             return (

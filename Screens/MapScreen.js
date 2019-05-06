@@ -1,6 +1,6 @@
 import MapView from 'react-native-maps'
 import React from 'react'
-import {View, Button, TouchableOpacity, Text, StyleSheet} from 'react-native'
+import {View, Button, TouchableOpacity, Text, StyleSheet, StatusBar} from 'react-native'
 import {observer, inject} from 'mobx-react'
 import MultiSlider from '@ptomasroos/react-native-multi-slider'
 import moment from 'moment'
@@ -8,8 +8,9 @@ import moment from 'moment'
 import EventPin from '../Components/EventPin.js'
 import SliderMarker from '../Components/SliderMarker.js'
 import NewEventButton from '../Components/NewEventButton.js'
-import {riceCoords, dateParseString, backendAgent} from '../config.js'
+import {riceCoords, dateParseString} from '../config.js'
 import NewEventForm from '../Components/NewEventForm.js'
+import SlideUpPanel from '../Components/SlideUpPanel.js'
 
 @inject('mapStore')
 @observer
@@ -22,32 +23,29 @@ export default class MapScreen extends React.Component {
     _parseTime = (timeStr) => {
         let str1 = timeStr.split(" ") // [hr:min, pm or am]
         let str2 = str1[0].split(":") // [hr, min]
+
         let hr = parseInt(str2[0])
         let min = parseInt(str2[1]) / 60
+        
         let isPM = (str1[1] == "pm") ? 1 : 0
 
         hr = hr % 12 + isPM * 12
         return hr + min
     }
 
-    showEvent = (time) => {
-//      console.log(moment("time.start").format("h:mm a"))
-      /*
-      let start = this._parseTime(moment(time.start, "DD-MMM-YYYY, hh:mm A").format("hh:mm A"))
-      let end = this._parseTime(moment(time.end, "DD-MMM-YYYY, hh:mm A").format("h:mm A"))
-      */
-      
+    showEvent = (time) => {      
         let start = moment(time.start, dateParseString)
         let end = moment(time.end, dateParseString)
+
         let intervalStart = this.props.mapStore.getStartFull
         let intervalEnd = this.props.mapStore.getEndFull
+
         return start.isBetween(intervalStart, intervalEnd) || end.isBetween(intervalStart, intervalEnd)
     }
 
     render() {
-
       return (
-        <View
+       <View
           style = {{flex: 1}}
           >
 
@@ -108,8 +106,10 @@ export default class MapScreen extends React.Component {
                 snapped
               />          
           </View>
-        <NewEventForm/>          
-      </View>
+          <View style={{height:20}}></View>
+          <SlideUpPanel/>
+          <NewEventForm/>          
+        </View>
       );
     }
   }

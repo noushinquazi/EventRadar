@@ -21,7 +21,7 @@ class BottomSheet extends React.Component {
 
   constructor(props) {
       super(props)
-      this.text_arr = ["drag up to change date", "tap to close"] 
+      this.text_arr = ["tap to change date", "tap to close"] 
       this.format = dateFormat
       this.minDate = moment().subtract(10, "y").format(this.format)
       this.maxDate = moment().add(10, "y").format(this.format)
@@ -41,6 +41,7 @@ class BottomSheet extends React.Component {
           showBackdrop={false}
           ref={c => (this._panel = c)}
           draggableRange={this.props.draggableRange}
+          allowDragging = {false}
          >
             <View style = {{flex: 1}}>
             {/* Text that opens and closes panel */}

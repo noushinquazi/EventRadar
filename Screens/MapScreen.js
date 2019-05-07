@@ -1,16 +1,19 @@
 import MapView from 'react-native-maps'
 import React from 'react'
-import {View, Button, TouchableOpacity, Text, StyleSheet, StatusBar} from 'react-native'
+import {View, TouchableOpacity, StyleSheet, Dimensions} from 'react-native'
 import {observer, inject} from 'mobx-react'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import MultiSlider from '@ptomasroos/react-native-multi-slider'
 import moment from 'moment'
 
 import EventPin from '../Components/EventPin.js'
 import SliderMarker from '../Components/SliderMarker.js'
 import NewEventButton from '../Components/NewEventButton.js'
-import {riceCoords, dateParseString} from '../config.js'
+import {riceCoords, dateTimeParseString} from '../config.js'
 import NewEventForm from '../Components/NewEventForm.js'
 import SlideUpPanel from '../Components/SlideUpPanel.js'
+
+let { width: screenWidth } = Dimensions.get('window');
 
 @inject('mapStore')
 @observer
@@ -34,8 +37,8 @@ export default class MapScreen extends React.Component {
     }
 
     showEvent = (time) => {      
-        let start = moment(time.start, dateParseString)
-        let end = moment(time.end, dateParseString)
+        let start = moment(time.start, dateTimeParseString)
+        let end = moment(time.end, dateTimeParseString)
 
         let intervalStart = this.props.mapStore.getStartFull
         let intervalEnd = this.props.mapStore.getEndFull
@@ -90,6 +93,18 @@ export default class MapScreen extends React.Component {
           >
             <NewEventButton/>
           </View>
+          
+          {/* Menu button */}
+          <TouchableOpacity
+            style={styles.menuButton}
+            onPress = {this.props.navigation.toggleDrawer}
+          >
+            <Icon
+              name = "menu"
+              color = "powderblue"
+              size = {40}
+            />
+          </TouchableOpacity>    
 
           {/* Slider to control time interval */}
           <View style = {{alignItems: 'center'}}>
@@ -120,5 +135,11 @@ styles = StyleSheet.create({
     position: 'absolute',// use absolute position to show button on top of the map
     top: '10%', // for center align
     alignSelf: 'flex-end' // for align to right
+  },
+  menuButton: {
+    position: 'absolute',// use absolute position to show button on top of the map
+    top: '5%', // for center align
+    alignSelf: 'flex-start', // for align to right
+    left: '5%'
   }
 })

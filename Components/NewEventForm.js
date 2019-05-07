@@ -7,7 +7,7 @@ import {observer, inject} from 'mobx-react'
 import moment from 'moment'
 
 import DBService from '../Database/service.js'
-import {dateParseString} from '../config.js'
+import {dateTimeParseString} from '../config.js'
 
 // form component
 const Form = t.form.Form
@@ -33,21 +33,19 @@ const options = {
       startTime: {
           mode: 'datetime',
           config: {
-            format: date => moment(date).format(dateParseString)
+            format: date => moment(date).format(dateTimeParseString)
           },
           label: "Start time                                    " // make datepicker expand
       },
       endTime: {
         mode: 'datetime',
         config: {
-            format: date => moment(date).format(dateParseString)
+            format: date => moment(date).format(dateTimeParseString)
         },
         label: "End time                                    "
       }
     }
   };
-// get screen width
-let {width: screenWidth} = Dimensions.get('window')
 
 @inject('mapStore')
 @observer
@@ -65,8 +63,8 @@ export default class NewEventForm extends React.Component {
             newEvent = { // Construct event object
                 name: protoEvent.eventName,
                 time: {
-                    start: moment(protoEvent.startTime).format(dateParseString),
-                    end: moment(protoEvent.endTime).format(dateParseString),
+                    start: moment(protoEvent.startTime).format(dateTimeParseString),
+                    end: moment(protoEvent.endTime).format(dateTimeParseString),
                 },
                 place: {
                     name: protoEvent.eventPlace,

@@ -31,7 +31,7 @@ export default class NewEventButton extends React.Component {
                 }}
             >
                 <Icon
-                    name = "plus"
+                  name = "plus"
                   color = "white"
                   size = {30}
                 />      

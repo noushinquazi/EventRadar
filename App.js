@@ -3,9 +3,10 @@ import { StyleSheet, Text, View } from 'react-native';
 import {Provider, observer} from 'mobx-react'
 import Spinner from 'react-native-loading-spinner-overlay';
 
-import MapScreen from './Screens/MapScreen.js'
-import DBService from './Database/service.js'
-import mapStore from './Stores/MapStore.js'
+import MapScreen from './Screens/MapScreen'
+import DBService from './Database/service'
+import mapStore from './Stores/MapStore'
+import AppNav from './Navigators/AppNav'
 
 @observer
 export default class App extends React.Component {
@@ -23,11 +24,14 @@ export default class App extends React.Component {
         else {
             return (
                 <Provider mapStore = {mapStore}>
-                    <View style = {{flex: 1}}>
-                        <MapScreen
-                        />
-                    </View>
+                    <AppNav>
+                        <View style = {{flex: 1}}>
+                            <MapScreen
+                            />
+                        </View>
+                    </AppNav>
                 </Provider>
+
                 );          
         }
     }

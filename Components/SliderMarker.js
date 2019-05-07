@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet, Platform, TouchableHighlight, Text } from 'react-native';
-import moment from 'moment'
 import { inject, observer } from 'mobx-react';
 
 
@@ -21,7 +20,6 @@ export default class SliderMarker extends React.Component {
   };
 
   convertToTime = hr => {
-    console.log(hr)
     if (hr % 12 == 0) {
         if (hr == 12) return "12 pm"
         else return "12 am"

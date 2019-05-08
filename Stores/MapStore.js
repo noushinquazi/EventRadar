@@ -4,11 +4,12 @@ import moment from 'moment'
 import DBService from '../Database/service.js'
 import {dateFormat} from '../config'
 
+
 class MapState {
 
     @observable currDate = moment().format(dateFormat) // date to display events from
-    @observable lowerBound = ""
-    @observable upperBound = ""
+    @observable lowerBound = "" // min time to consider
+    @observable upperBound = "" // max time to consider
 
     @observable startTime = 0 // slider min value
     @observable endTime = 24 // slider max value
@@ -46,12 +47,12 @@ class MapState {
         this.currDate = newDate
     }
     
-    /* Get full start time including the date. */
+    /* Get full start time of the interval including the date. */
     @computed get getStartFull() { 
         return this.lowerBound.clone().add(this.startTime, "h") // moment object
     }
 
-    /* Get full end time including the date. */
+    /* Get full end time of the interval including the date. */
     @computed get getEndFull() {
         return this.lowerBound.clone().add(this.endTime, "h") // moment object
     }

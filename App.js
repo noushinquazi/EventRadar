@@ -1,5 +1,6 @@
+
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { View } from 'react-native';
 import {Provider, observer} from 'mobx-react'
 import Spinner from 'react-native-loading-spinner-overlay';
 
@@ -11,7 +12,7 @@ import AppNav from './Navigators/AppNav'
 @observer
 export default class App extends React.Component {
     render() {
-        /* Wait for database authentication. */
+        /* Wait for database authentication */
         if (!DBService.isAuthenticated) {
             return (
                 <Spinner
@@ -20,7 +21,7 @@ export default class App extends React.Component {
                 />
             )
         }
-        /* Display map. */
+        /* Display map */
         else {
             return (
                 <Provider mapStore = {mapStore}>

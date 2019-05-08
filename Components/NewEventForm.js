@@ -22,6 +22,7 @@ const EventSchema = t.struct({
     description: t.maybe(t.String)
 })
 
+// format date options
 const options = {
     fields: {
       description: {
@@ -91,12 +92,14 @@ export default class NewEventForm extends React.Component {
 
     render () {
         return(
+            /* Pop-up containting the form */
+            /* TODO: make more native looking */
             <Modal
-                    isVisible = {this.props.mapStore.addingEvent && this.props.mapStore.isRecorded}
-                    animationIn = {'slideInUp'}
-                    animationOut = {'zoomOut'}
-                    animationInTiming = {500}
-                    animationOutTiming = {500}
+                isVisible = {this.props.mapStore.addingEvent && this.props.mapStore.isRecorded}
+                animationIn = {'slideInUp'}
+                animationOut = {'zoomOut'}
+                animationInTiming = {500}
+                animationOutTiming = {500}
             >
                 <View 
                     style={{

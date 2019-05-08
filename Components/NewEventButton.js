@@ -1,11 +1,13 @@
 import React from 'react'
-import {TouchableOpacity, Alert} from 'react-native'
+import {Alert} from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
+import ActionButton from 'react-native-action-button'
 import {inject} from 'mobx-react'
 
 @inject('mapStore')
 export default class NewEventButton extends React.Component {
 
+    /* Pop-up alert that asks to create new event */
     sendAlert = () => {
         Alert.alert(
             "Create event?",
@@ -23,19 +25,17 @@ export default class NewEventButton extends React.Component {
     }
     render () {
         return (
-            <TouchableOpacity
+            <ActionButton
                 onPress = {this.sendAlert}
-                style ={{
-                    backgroundColor: "lightblue",
-                    opacity: 0.5
-                }}
+                buttonColor = "rgba(135,206,250, 1)" // light sky blue
+                degrees = {0} // disable animation
             >
                 <Icon
                   name = "plus"
                   color = "white"
                   size = {30}
                 />      
-            </TouchableOpacity>
+            </ActionButton>
         )
     }
 }

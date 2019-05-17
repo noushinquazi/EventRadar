@@ -8,7 +8,8 @@ app, you can always stay in the loop!
 
 ## Current Functionalities
 + View events on map of campus
-+ Modify time period of interest using a slider
++ Modify time period of interest using a slider (24 hr)
++ Select day of interest under slider
 + Add events to map
     + Tap plus icon on the right
     + Before the form shows up, *you must tap on the location of the event on
@@ -19,6 +20,11 @@ app, you can always stay in the loop!
 1. Download the Expo Client App on your mobile platform's app-store
 2. Visit https://exp.host/@nquazi/EventsRadar
 3. Enjoy!
+
+## Running in Development Mode
+1. ```npm install```
+2. ```npm start```
+3. Run `EventRadar-backend`
 
 ## Gallery
 *TBD*

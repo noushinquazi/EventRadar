@@ -22,4 +22,16 @@ app, you can always stay in the loop!
 3. Run `EventRadar-backend`
 
 ## Gallery
-*TBD*
+View events
+
+![view-events](https://thumbs.gfycat.com/CloudyLimpAlleycat-small.gif)
+
+Create events
+
+![create-event](https://thumbs.gfycat.com/IncrediblePopularAsianwaterbuffalo-small.gif)
+
+Change time interval
+
+![change-date](https://thumbs.gfycat.com/SophisticatedSmartCattle-small.gif)
+
+![change-slider](https://thumbs.gfycat.com/ThunderousVariableFrenchbulldog-small.gif)

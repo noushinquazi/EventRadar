@@ -1,5 +1,5 @@
 
-ip = "10.0.0.193"
+ip = "YOUR IP ADDRESS HERE"
 module.exports = {
     riceCoords: {
         latitude: 29.7165,

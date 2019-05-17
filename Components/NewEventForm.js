@@ -46,6 +46,10 @@ const options = {
             format: date => moment(date).format(dateTimeParseString)
         },
         label: "End time                                    "
+      },
+      description: {
+          multiline: true,
+          numberOfLines: 3
       }
     }
   };
@@ -103,18 +107,19 @@ export default class NewEventForm extends React.Component {
                 animationInTiming = {500}
                 animationOutTiming = {500}
             >*/
+            
             <Modal
                 isVisible = {this.props.mapStore.addingEvent && this.props.mapStore.isRecorded}
                 style = {{margin: 0}}
                 animationType = {'slide'}
-                swipeDirection = {'left'}
-                onSwipeComplete = {this.hideModal}
                 propagateSwipe
+                avoidKeyboard
             >
+                <View style = {{height: Constants.statusBarHeight}}/> 
                 <View 
                     style={{
                         backgroundColor: 'white',
-                        marginTop: Constants.statusBarHeight
+                        marginTop: Constants.statusBarHeight + 10
                     }}
                 >
 

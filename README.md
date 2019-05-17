@@ -16,12 +16,7 @@ app, you can always stay in the loop!
       the map*
     + Next, the form will show up
 
-## Instructions for Usage
-1. Download the Expo Client App on your mobile platform's app-store
-2. Visit https://exp.host/@nquazi/EventsRadar
-3. Enjoy!
-
-## Running in Development Mode
+## Development Mode
 1. ```npm install```
 2. ```npm start```
 3. Run `EventRadar-backend`

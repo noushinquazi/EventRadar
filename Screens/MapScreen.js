@@ -1,6 +1,6 @@
 import MapView from 'react-native-maps'
 import React from 'react'
-import {View, TouchableOpacity, StyleSheet, Dimensions} from 'react-native'
+import {View, TouchableOpacity, StyleSheet} from 'react-native'
 import {observer, inject} from 'mobx-react'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import MultiSlider from '@ptomasroos/react-native-multi-slider'
@@ -25,8 +25,8 @@ export default class MapScreen extends React.Component {
 
     /* Determines whether to show an event based on its time */
     showEvent = (time) => {      
-        let start = moment(time.start, dateTimeParseString)
-        let end = moment(time.end, dateTimeParseString)
+        let start = moment(time.start)
+        let end = moment(time.end)
 
         let intervalStart = this.props.mapStore.getStartFull
         let intervalEnd = this.props.mapStore.getEndFull
@@ -69,10 +69,8 @@ export default class MapScreen extends React.Component {
                 >
                     {/* list of events */}
                     {this.props.mapStore.events.map(event => {
-                        if (this.showEvent(event.time)) {
+                        if (this.showEvent(event.time)) 
                             return (<EventPin key = {event._id} event = {event}/>)
-                        }
-
                     })}
                 </MapView>
 
@@ -85,13 +83,13 @@ export default class MapScreen extends React.Component {
                 
                 {/* Menu button */}
                 <TouchableOpacity
-                style={styles.menuButton}
-                onPress = {this.props.navigation.toggleDrawer}
+                    style={styles.menuButton}
                 >
                     <Icon
                         name = "menu"
                         color = "powderblue"
                         size = {40}
+                        onPress = {this.props.navigation.toggleDrawer}
                     />
                 </TouchableOpacity>    
 
@@ -132,14 +130,14 @@ export default class MapScreen extends React.Component {
 styles = StyleSheet.create({
   newEventButton: {
     position: 'absolute',// use absolute position to show button on top of the map
-    alignSelf: 'flex-end', // for align to right
+    alignSelf: 'flex-end', // align to right
     bottom: '30%',
     right: '10%'
   },
   menuButton: {
     position: 'absolute',// use absolute position to show button on top of the map
     top: '5%', // offset from top
-    alignSelf: 'flex-start', // for align to right
+    alignSelf: 'flex-start', // align to right
     left: '5%' // offset from left
   }
 })

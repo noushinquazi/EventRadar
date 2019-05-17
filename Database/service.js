@@ -5,7 +5,7 @@ import {
 
 import {observable} from 'mobx'
 
-var {backendAgent} = require('../config.js')
+const {backendAgent, api_url} = require('../config.js')
 
 class DBService {
 
@@ -14,18 +14,31 @@ class DBService {
 
     /* Initialize database client */
     constructor() {
+
+        /* PHASING OUT STITCH
         Stitch.initializeDefaultAppClient(backendAgent).then(client => {
-            console.log("finished auth")
             this.DBClient = client   
-            client.auth.loginWithCredential(new AnonymousCredential()).then(user => this.isAuthenticated = true); 
+
+            // first log out of current session
+                client.auth.loginWithCredential(new AnonymousCredential()).then
+                (user => this.isAuthenticated = true)
+ 
         })
+        .catch(console.log)
+        */
+
+        this.DBClient = {}
+        this.isAuthenticated = true
     }
 
     /* Query all events in DB */
     fetchEvents = async() => {
         try {
-            let events = await this.DBClient.callFunction("getAllEvents")
-            return events    
+            //let events = await this.DBClient.callFunction("getAllEvents")
+            let res = await fetch(api_url + '/events', {
+                method: 'GET'
+              });
+            return await res.json()    
         } catch(err) {
             console.log(err)
         }
@@ -34,10 +47,20 @@ class DBService {
 
     /* Add event to DB */
     addEvent = async(event) => {
+        console.log(JSON.stringify(event))
         try {
-            let result = this.DBClient.callFunction("addEvent", [event])
-            if (result == null) console.log("invalid insertion")
-            return result
+            //let result = this.DBClient.callFunction("addEvent", [event])
+            //if (result == null) console.log("invalid insertion")
+            let res = await fetch(api_url + '/events', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(
+                    event
+                )
+            })
+            console.log(await res.json())
         } catch(err) {
             console.log(err)
         }

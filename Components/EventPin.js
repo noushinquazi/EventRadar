@@ -15,8 +15,8 @@ export default class EventPin extends React.Component {
         let {time} = this.props.event
 
         // Format time to display according to config
-        let start = moment(time.start, dateTimeParseString).format(dateTimeDisplayString)
-        let end = moment(time.end, dateTimeParseString).format(dateTimeDisplayString)
+        let start = moment(time.start).format(dateTimeDisplayString)
+        let end = moment(time.end).format(dateTimeDisplayString)
         
         return (
 

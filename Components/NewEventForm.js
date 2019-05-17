@@ -1,10 +1,12 @@
 import t from 'tcomb-form-native'
 import Modal from 'react-native-modal'
 import React from 'react'
-import {View, Dimensions, StyleSheet, Button, Text, ScrollView, TouchableOpacity} from 'react-native'
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
+import {View, StyleSheet, ScrollView, TouchableOpacity, Text, KeyboardAvoidingView} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import {observer, inject} from 'mobx-react'
 import moment from 'moment'
+import { Constants } from 'expo'
 
 import DBService from '../Database/service.js'
 import {dateTimeParseString} from '../config.js'
@@ -94,56 +96,78 @@ export default class NewEventForm extends React.Component {
         return(
             /* Pop-up containting the form */
             /* TODO: make more native looking */
-            <Modal
+            /*<Modal
                 isVisible = {this.props.mapStore.addingEvent && this.props.mapStore.isRecorded}
                 animationIn = {'slideInUp'}
                 animationOut = {'zoomOut'}
                 animationInTiming = {500}
                 animationOutTiming = {500}
+            >*/
+            <Modal
+                isVisible = {this.props.mapStore.addingEvent && this.props.mapStore.isRecorded}
+                style = {{margin: 0}}
+                animationType = {'slide'}
+                swipeDirection = {'left'}
+                onSwipeComplete = {this.hideModal}
+                propagateSwipe
             >
                 <View 
                     style={{
-                        borderRadius: 10, 
-                        backgroundColor: 'white'
+                        backgroundColor: 'white',
+                        marginTop: Constants.statusBarHeight
                     }}
                 >
+
                     <View 
                         style={{
                             flexDirection: 'row', 
-                            justifyContent: 'flex-end',
+                            justifyContent: 'space-between'
                         }}
                     >
+                        
                         {/* cancel button */}
                         <TouchableOpacity
                             onPress = {this.hideModal}
-                            style = {{
-                                paddingLeft: 50,
-                                paddingRight: 10
-                            }}
                         >   
                         <Icon 
                             name = 'close' 
                             size = {30}
-                            color = 'skyblue'
+                            color = 'red'
                         />
-                        </TouchableOpacity>
+                        </TouchableOpacity>                        
+                        
+                        <Text style = {{color: 'black', fontSize: 20}}>
+                            New Event
+                        </Text>                        
+                        
+                        {/* submit button */}
+                        <TouchableOpacity
+                            onPress = {this.submitEvent}
+                        >   
+                        <Icon 
+                            name = 'check'
+                            size = {30}
+                            color = 'green'
+                        />
+                        </TouchableOpacity>                        
+                        
+
                     </View>
 
                     {/* new event creation form*/}
-                    <ScrollView>
+                    <KeyboardAwareScrollView>
                         <View style = {styles.content}>
                             <Form 
                                 type = {EventSchema}
                                 options = {options}
                                 ref={c => this.form = c}
+                                value = {{
+                                    startTime: moment().toDate(),
+                                    endTime: moment().toDate()
+                                }}
                             />
-                            <Button
-                                title = "Create New Event!" 
-                                onPress = {()=> this.submitEvent()}
-                            >
-                            </Button>
                         </View>
-                    </ScrollView>
+                    </KeyboardAwareScrollView>
                 </View>
             </Modal>
         )

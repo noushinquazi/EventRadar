@@ -34,7 +34,7 @@ export default class Sidebar extends Component {
                 alignItems: 'center',
                 flex: 1
             }]}
-            onPress={() => this.navigate('')}
+            onPress={() => this.navigate('List')}
           >
             <Icon
               name="format-list-bulleted"

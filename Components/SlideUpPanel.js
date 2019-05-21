@@ -35,49 +35,50 @@ class BottomSheet extends React.Component {
 
     let text = this.text_arr[this.state.show | 0] // text renders conditioned on panel state
     return (
-      <View style={styles.container}>
-        {/* Sliding panel that contains date picker */}
-        <SlidingUpPanel 
-          showBackdrop={false}
-          ref={c => (this._panel = c)}
-          draggableRange={this.props.draggableRange}
-          allowDragging = {false}
-         >
-            <View style = {{flex: 1}}>
-            {/* Text that opens and closes panel */}
-            <TouchableOpacity
-                style={styles.panel}
-                onPress={() => 
-                    this.setState({
-                        show: !this.state.show
-                    }, () => {
-                        if (this.state.show)
-                            this._panel.show()
-                        else
-                            this._panel.hide()
-                    })
-                }
+        <View style={styles.container}>
+
+            {/* Sliding panel that contains date picker */}
+            <SlidingUpPanel 
+                showBackdrop={false}
+                ref={c => (this._panel = c)}
+                draggableRange={this.props.draggableRange}
+                allowDragging = {false}
             >
-                <Text style={{alignSelf: 'center'}}>{text}</Text>
-                <View style = {{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                <DatePicker
-                    date = {this.props.mapStore.currDate}
-                    format = {this.format}
-                    mode = "date"
-                    minDate = {this.minDate}
-                    maxDate = {this.maxDate}
-                    onDateChange = {(date) => {this.props.mapStore.setDate(date)}}
-                    confirmBtnText = "change"
-                    cancelBtnText = "cancel"
-                />
+                <View style = {{flex: 1}}>
 
+                {/* Text that opens and closes panel */}
+                <TouchableOpacity
+                    style={styles.panel}
+                    onPress={() => 
+                        this.setState({
+                            show: !this.state.show
+                        }, () => {
+                            if (this.state.show)
+                                this._panel.show()
+                            else
+                                this._panel.hide()
+                        })
+                    }
+                >
+                    <Text style={{alignSelf: 'center'}}>{text}</Text>
+                    <View style = {{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                    <DatePicker
+                        date = {this.props.mapStore.currDate}
+                        format = {this.format}
+                        mode = "date"
+                        minDate = {this.minDate}
+                        maxDate = {this.maxDate}
+                        onDateChange = {(date) => {this.props.mapStore.setDate(date)}}
+                        confirmBtnText = "change"
+                        cancelBtnText = "cancel"
+                    />
+
+                    </View>
+
+                </TouchableOpacity>
                 </View>
-
-            </TouchableOpacity>
-            </View>
-            
-        </SlidingUpPanel>
-      </View>
+            </SlidingUpPanel>
+        </View>
     )
   }
 }
@@ -87,7 +88,7 @@ const styles = {
       backgroundColor: '#f8f9fa',
       alignItems: 'center',
       justifyContent: 'center',
-      position: 'relative'
+      position: 'relative',
     },
     panel: {
       flex: 1,

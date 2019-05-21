@@ -3,6 +3,7 @@ import {Dimensions} from 'react-native'
 
 import Sidebar from '../Components/SideBar'
 import MapScreen from '../Screens/MapScreen'
+import ListScreen from '../Screens/ListScreen'
 
 let { width: screenWidth } = Dimensions.get('window');
 
@@ -12,7 +13,7 @@ const HomeNav = createDrawerNavigator(
         screen: MapScreen,
       },
       List: {
-        screen: MapScreen,
+        screen: ListScreen,
       }
     },
     {

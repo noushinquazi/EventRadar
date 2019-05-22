@@ -1,6 +1,8 @@
 import React from 'react'
 import {FlatList, Text, View, Dimensions} from 'react-native'
 import {inject, observer} from 'mobx-react'
+import {Header, Body, Title, Left, Right, Card, CardItem} from 'native-base'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import {Constants} from 'expo'
 
 import EventCard from '../Components/EventCard'
@@ -16,10 +18,20 @@ export default class ListScreen extends React.Component {
 
     render() {
         return (
-            <View style = {{flexDirection: 'column'}}>
-                <View style = {[styles.header, {borderColor: 'red', borderWidth: 5}]}>
-                    <Text style = {{textAlign: 'center'}}>Events</Text>
-                </View>
+            <View>
+                <Header>
+                    <Left>
+                        <Icon
+                            name = "menu"
+                            size = {30}
+                            onPress = {this.props.navigation.toggleDrawer}     
+                        />
+                    </Left>
+                    <Body>
+                        <Title>Events</Title>
+                    </Body>
+                    <Right/>
+                </Header>
                 <FlatList
                     data = {this.props.mapStore.events}
                     renderItem = {({item}) => <EventCard event = {item}/>}

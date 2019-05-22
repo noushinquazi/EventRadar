@@ -1,5 +1,6 @@
 import React from 'react'
 import {View, Text} from 'react-native'
+import {Card, CardItem, Body} from 'native-base'
 import moment from 'moment'
 
 import {dateTimeDisplayString} from '../config'
@@ -14,14 +15,20 @@ export default class EventCard extends React.Component {
         let end = moment(time.end).format(dateTimeDisplayString)
 
         return (
-            <View>
-                <Text style={{fontWeight: 'bold'}}>
-                    {this.props.event.name}
-                </Text>
-                <Text>from: {start}</Text>
-                <Text>to: {end}</Text>
-                <Text>where: {place.name}</Text>
-            </View>
+            <Card>
+                <CardItem header bordered>
+                    <Text>
+                        {this.props.event.name}
+                    </Text>
+                </CardItem>
+                <CardItem bordered>
+                    <Body>
+                        <Text>from: {start}</Text>
+                        <Text>to: {end}</Text>
+                        <Text>where: {place.name}</Text>
+                    </Body>
+                </CardItem>
+            </Card>
         )
     }
 }

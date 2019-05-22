@@ -16,6 +16,7 @@
     "moment": "^2.24.0",
     "mongodb-stitch-react-native-sdk": "^4.3.2",
     "mongodb-stitch-react-native-services-mongodb-remote": "^4.3.2",
+    "native-base": "^2.12.1",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
     "react-native-action-button": "^2.8.5",

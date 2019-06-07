@@ -17,8 +17,6 @@ import SlideUpPanel from '../Components/SlideUpPanel.js'
 @observer
 export default class MapScreen extends React.Component {
 
-    sliderHeight = 0
-
     componentDidMount() {
         this.props.mapStore.getAllEvents() // fetch events from database
     }
@@ -96,7 +94,6 @@ export default class MapScreen extends React.Component {
                 {/* Slider to control time interval */}
                 <View 
                     style = {{alignItems: 'center'}}
-                    onLayout = {event => this.sliderHeight = event.nativeEvent.layout.height}
                 >
                     <MultiSlider
                         values = {[

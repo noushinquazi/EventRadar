@@ -23,7 +23,6 @@ class MapState {
     constructor() {
         autorun(() => {
             this.lowerBound = moment(this.currDate).startOf('date')
-
             this.upperBound = moment(this.currDate).endOf('date')
         })    
     }

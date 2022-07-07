@@ -13,7 +13,7 @@
     "expo": "^31.0.2",
     "mobx": "^5.9.0",
     "mobx-react": "^5.4.3",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "mongodb-stitch-react-native-sdk": "^4.3.2",
     "mongodb-stitch-react-native-services-mongodb-remote": "^4.3.2",
     "native-base": "^2.12.1",
